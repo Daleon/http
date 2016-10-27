@@ -41,8 +41,8 @@ class Server
   end
 
   def header_assignment(body, lines, client, response)
-    if requested_path(lines) == '/game?guess' && post?(lines)
-      client.puts headers(body, '302 Redirect', 'http://127.0.0.1:9292/game')
+    if requested_path(lines) == "/game?guess" && post?(lines)
+      client.puts headers(body, "302 Redirect", "http://127.0.0.1:9292/game")
     elsif select_http_status_codes.key?(response[0..2])
       client.puts headers(body, select_http_status_codes[response[0..2]])
     else
@@ -58,12 +58,14 @@ class Server
     received
   end
 
-  def create_game
+  def start_game
     @game = Game.new
     game.start_game
   end
 
   def check_and_set_guess(lines, user_guess)
-    game.guess = user_guess if active_game? && post?(lines)
+    if active_game? && post?(lines)
+      game.guess = user_guess
+    end
   end
 end
