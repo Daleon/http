@@ -7,8 +7,8 @@ class Server
   attr_reader :server,
               :port,
               :hello_requests,
-              :all_requests,
-              :game
+              :all_requests
+attr_accessor :game
 
   include ParseAndFormat, Response
 
