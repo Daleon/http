@@ -9,19 +9,19 @@ module ParseAndFormat
   def assign_to_debugger(lines)
     output = {}
     lines.each do |line|
-      if line.include?('HTTP')
-        output[:Verb] = line[0...line.index('/')].strip
-        output[:Path] = line[line.index('/')...line.index('HTTP')].strip
+      if line.include?("HTTP")
+        output[:Verb] = line[0...line.index("/")].strip
+        output[:Path] = line[line.index("/")...line.index("HTTP")].strip
         output[:Protocol] = line[-8..-1]
-      elsif line.include?('Host')
+      elsif line.include?("Host")
         output[:Host] = line.split(':')[1].strip
         output[:Port] = line.split(':')[2]
         output[:Origin] = `ipconfig getifaddr en0`.chomp.to_s
       end
-      if line.include?('Accept:')
+      if line.include?("Accept:")
         output[:Accept] = line.split(':')[1].strip
       end
-      if line.include?('Content-Length')
+      if line.include?("Content-Length")
         output[:Content_Length] = line.split(':')[1].strip
       end
     end
@@ -54,7 +54,7 @@ module ParseAndFormat
   end
 
   def word_search(word)
-    word_file = File.readlines('/usr/share/dict/words')
+    word_file = File.readlines("/usr/share/dict/words")
     dictionary = word_file.map do |word|
       word.downcase.rstrip
     end
