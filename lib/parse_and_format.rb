@@ -19,10 +19,10 @@ module ParseAndFormat
         output[:Origin] = `ipconfig getifaddr en0`.chomp.to_s
       end
       if line.include?("Accept:")
-        output[:Accept] = line.split(':')[1].strip
+        output[:Accept] = line.split(":")[1].strip
       end
       if line.include?("Content-Length")
-        output[:Content_Length] = line.split(':')[1].strip
+        output[:Content_Length] = line.split(":")[1].strip
       end
     end
     output
